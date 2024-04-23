@@ -34,7 +34,7 @@ Two plots will be generated and displayed:
 
 Additionally, the code will run the Random Forest and SVM classifiers from scikit-learn on the MNIST dataset and display their accuracies.
 
-The entire execution process may take some time, depending on your machine's specifications and the number of epochs specified.
+The entire execution process may take some time, depending on your machine's specifications and the number of epochs specified (in my work, I set epoch to 10).
 
 Once the execution is complete, you can review the printed accuracies and the generated plots to analyze the performance of different optimizers and compare them with the scikit-learn classifiers.
 
