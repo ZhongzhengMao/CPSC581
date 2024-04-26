@@ -42,6 +42,9 @@ Please refer to the code provided in the appendix or the ipynb to replicate the 
 
 ## Appendix
 ```
+!pip install --upgrade torch==1.9.0
+!pip install --upgrade torchvision==0.10.0
+
 import torch
 import torchvision
 from torchvision.datasets import mnist
