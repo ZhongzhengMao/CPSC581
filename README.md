@@ -250,19 +250,24 @@ def dataset(train_batch: int = 128, test_batch: int = 1000):
 
     return train_data, test_data
 
-def dataset(train_batch: int = 128, test_batch: int = 1000):
-    data_tf = torchvision.transforms.Compose(
-        [
-            torchvision.transforms.ToTensor(),
-            torchvision.transforms.Normalize([0.5], [0.5])
-        ]
-    )
-    train_data = mnist.MNIST(root='./data', train=True, transform=data_tf, download=True)
-    test_data = mnist.MNIST(root='./data', train=False, transform=data_tf, download=True)
+if __name__ == "__main__":
+    train_data, test_data = dataset()
 
-    train_data = torch.utils.data.DataLoader(train_data, batch_size=len(train_data), shuffle=True)
-    test_data = torch.utils.data.DataLoader(test_data, batch_size=len(test_data), shuffle=False)
+    for data in train_data:
+        X_train, y_train = data[0].view(data[0].shape[0], -1).numpy(), data[1].numpy()
+    for data in test_data:
+        X_test, y_test = data[0].view(data[0].shape[0], -1).numpy(), data[1].numpy()
 
-    return train_data, test_data
+    rf = RandomForestClassifier(n_estimators=100, random_state=42)
+    rf.fit(X_train, y_train)
+    y_pred_rf = rf.predict(X_test)
+    accuracy_rf = accuracy_score(y_test, y_pred_rf)
+    print("Random Forest Accuracy: {:.2f}%".format(accuracy_rf * 100))
+
+    svm = SVC(random_state=42)
+    svm.fit(X_train, y_train)
+    y_pred_svm = svm.predict(X_test)
+    accuracy_svm = accuracy_score(y_test, y_pred_svm)
+    print("SVM Accuracy: {:.2f}%".format(accuracy_svm * 100))
 
 ```
